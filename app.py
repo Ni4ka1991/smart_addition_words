@@ -21,15 +21,15 @@ def textFromPDF( path, start = 0, end = 1000 ):
         i += 1
 
     textProcessed = text.lower()
-    text = ""
-
-    for i in textProcessed:
+    text = textProcessed[:10 ]                  #first 10 symbols of text
+    text = text + "3 " + text
+    print( text )
+    input( "hit enter" )
+    
+    for i in text:
         c = alphabet.find( i )
-        print( f"c = {c}" )
-        print( f"i = {i}" )
-        input( "hit enter" )   
-        if i == c:
-            text += i
+        print( f"symbol {i} found in alphabet in position  {c}" )
+        input( "hit enter" )
 
             
 
@@ -49,4 +49,4 @@ def textFromPDF( path, start = 0, end = 1000 ):
     print( "*" * 18 + " >>> " +"END TEXT" + " <<< " + "*" * 18 )
     print()
 
-textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 5 )
+textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 1 )

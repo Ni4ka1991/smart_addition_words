@@ -22,13 +22,13 @@ def textFromPDF( path, start = 0, end = 1000 ):
 
     textProcessed = text.lower()
     text = textProcessed[:10 ]                  #first 10 symbols of text
-    text = text + "3 " + text
-    print( text )
+    text = text + "д " + text
+    print( f"Text with one unalphabet symbol:\n\n\"{text}\"" )
     input( "hit enter" )
-    
+    print( f"\nOur string alphabet:\n>>>{alphabet}" )
     for i in text:
         c = alphabet.find( i )
-        print( f"symbol {i} found in alphabet in position  {c}" )
+        print( f"\nsymbol {i} found in alphabet in position  {c}" )
         input( "hit enter" )
 
             

@@ -5,7 +5,7 @@ from PyPDF2 import PdfFileReader
 import re
 from os import system
 
-alphabet = ' abcdefghijklmnopqrstuvwxyz.'
+alphabet = ' abcdefghijklmnopqrstuvwxyz'
 
 def textFromPDF( path, start = 0, end = 1000 ):
     text = ""                                    #initialisation var text string
@@ -29,26 +29,20 @@ def textFromPDF( path, start = 0, end = 1000 ):
         else:
             textProcessed += i
 
-    
-
     textProcessed = re.sub( "page", " ", textProcessed )
     textProcessed = re.sub( " +", " ", textProcessed )
+    
+    return re.sub( " +", " ", textProcessed )
 
 
-
-    system( "clear" )
-    print( f"PDF: found {pages} pages" )
-    print()
-    print()
-    print( "*" * 20 + " >>> " +"TEXT page 1" + " <<< " + "*" * 20 )
-    print()
-    print( textProcessed )
-    print()
-    print( "*" * 18 + " >>> " +"END TEXT" + " <<< " + "*" * 18 )
-
-#    return re.sub( " +", " ", textProcessed )
+def createVocabulary( text ):
+        words = text.split(" ")
+        vocabulary = list( set( words ))
+        vocabulary.sort()
+        return vocabulary
+        
 
 
+text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
 
-
-textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
+createVocabulary( text )

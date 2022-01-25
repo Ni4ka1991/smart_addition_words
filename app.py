@@ -4,6 +4,7 @@
 from PyPDF2 import PdfFileReader
 import re
 from os import system
+import numpy as np
 
 alphabet = ' abcdefghijklmnopqrstuvwxyz'
 
@@ -47,10 +48,25 @@ def wordToOneHotVector( word ):
     try:
         index = vocabulary.index( word )
         arr = [0] * len( vocabulary )
+        arr = np.array( arr )
         arr[ index ] = 1
-        print( arr )
     except:
-        print( "This word missing in vocabulary " )
+        index = 0
+        arr = np.array( arr[index] )
+    return arr
+
+
+def characterToOneHotVector( character ):
+    try:
+        index = alphabet.index( character )
+        arr = [0] * len( alphabet )
+        arr = np.array( arr )
+        arr[ index ] = 1
+    except:
+        index = 0
+        arr = np.array( arr[index] )
+    return arr
+
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
 

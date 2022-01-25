@@ -40,9 +40,18 @@ def createVocabulary( text ):
         vocabulary = list( set( words ))
         vocabulary.sort()
         return vocabulary
-        
+#        print( vocabulary )
+
+def wordToOneHotVector( word ):
+    index = vocabulary.index( word )
+    print( [0] * index )
 
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
 
-createVocabulary( text )
+vocabulary = createVocabulary( text )
+
+wordToOneHotVector( "woman" )
+
+
+

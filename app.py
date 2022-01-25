@@ -44,16 +44,20 @@ def createVocabulary( text ):
 #        input( "hit enter" )
 
 def wordToOneHotVector( word ):
-    index = vocabulary.index( word )
-    arr = [0] * len( vocabulary )
-    arr[ index ] = 1
-    print( arr )
+    try:
+        index = vocabulary.index( word )
+        arr = [0] * len( vocabulary )
+        arr[ index ] = 1
+        print( arr )
+    except:
+        print( "This word missing in vocabulary " )
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
 
 vocabulary = createVocabulary( text )
 
-wordToOneHotVector( "woman" )
+wordToOneHotVector( "account" )
+wordToOneHotVector( "baby" )
 
 
 

@@ -40,12 +40,14 @@ def createVocabulary( text ):
         vocabulary = list( set( words ))
         vocabulary.sort()
         return vocabulary
-#        print( vocabulary )
+#        print( vocabulary[:20] )
+#        input( "hit enter" )
 
 def wordToOneHotVector( word ):
     index = vocabulary.index( word )
-    print( [0] * index )
-
+    arr = [0] * len( vocabulary )
+    arr[ index ] = 1
+    print( arr )
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
 

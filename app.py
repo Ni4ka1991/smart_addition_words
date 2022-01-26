@@ -5,6 +5,7 @@ from PyPDF2 import PdfFileReader
 import re
 from os import system
 import numpy as np
+import torch
 
 alphabet = ' abcdefghijklmnopqrstuvwxyz'
 
@@ -68,20 +69,39 @@ def characterToOneHotVector( character ):
     return arr
 
 def oneHotVectorToWord( vector ):
-#        return vocabulary[vector.index(1)]
-        print( vocabulary[vector.index(1)] )
+        return vocabulary[vector.index(1)]
 
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
-
 vocabulary = createVocabulary( text )
 
-wordToOneHotVector( "account" )
-wordToOneHotVector( "baby" )
+#wordToOneHotVector( "account" )
+#wordToOneHotVector( "baby" )
+#arr = [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ]
+#print( oneHotVectorToWord( arr ))
 
-arr = [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ]
+#********
+textAsWords_ = text.split( " " )
+textAsWords = []
 
-oneHotVectorToWord( arr )
+for word in textAsWords_:
+    if word != '':
+        textAsWords.append( word )
+
+X_ = []
+Y_ = []
+
+
+for xi in range( len( textAsWords ) - 2 ):
+    Xw1 = wordToOneHotVector( textAsWords[xi] )
+    Xw0 = wordToOneHotVector( textAsWords[xi + 1] )
+    Xc0 = characterToOneHotVector( textAsWords[xi + 2][0] )
+    
+    Yw0 = wordToOneHotVector( textAsWords[xi + 2] )
+    X_.append( Xw1+Xw0+Xc0 )
+    Y_.append( Yw0 )
+print( textAsWords[0], textAsWords[1], textAsWords[2][0]," -> ", oneHotVectorWord( Y_[0] ))
+
 
 
 

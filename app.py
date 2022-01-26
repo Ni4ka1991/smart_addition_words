@@ -52,7 +52,7 @@ def wordToOneHotVector( word ):
         arr[ index ] = 1
     except:
         index = 0
-        arr = np.array( arr[index] )
+        arr = [0] * index
     return arr
 
 
@@ -64,8 +64,12 @@ def characterToOneHotVector( character ):
         arr[ index ] = 1
     except:
         index = 0
-        arr = np.array( arr[index] )
+        arr = [0] * index
     return arr
+
+def oneHotVectorToWord( vector ):
+#        return vocabulary[vector.index(1)]
+        print( vocabulary[vector.index(1)] )
 
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
@@ -74,6 +78,10 @@ vocabulary = createVocabulary( text )
 
 wordToOneHotVector( "account" )
 wordToOneHotVector( "baby" )
+
+arr = [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ]
+
+oneHotVectorToWord( arr )
 
 
 

@@ -6,6 +6,8 @@ import re
 from os import system
 import numpy as np
 import torch
+#np.set_printoptions( threshold = 20, edgeitems = 3  )
+
 
 alphabet = ' abcdefghijklmnopqrstuvwxyz'
 
@@ -69,7 +71,8 @@ def characterToOneHotVector( character ):
     return arr
 
 def oneHotVectorToWord( vector ):
-        return vocabulary[vector.index(1)]
+    print( "*"*12 )
+#    return vocabulary[vector.index(1)]
 
 
 text = textFromPDF( "./data/Pride-and-Prejudice.pdf", 0, 20 )
@@ -94,13 +97,27 @@ Y_ = []
 
 for xi in range( len( textAsWords ) - 2 ):
     Xw1 = wordToOneHotVector( textAsWords[xi] )
+    with np.printoptions( threshold = 20, edgeitems = 3  ):
+        print( Xw1 )
+    print( type( Xw1 ))
+    input( "hit Enter" )
     Xw0 = wordToOneHotVector( textAsWords[xi + 1] )
+#    np.set_printoptions( threshold = 20, edgeitems = 3  )
+    print( Xw0 )
+    print( type( Xw0 ))
+    input( "hit Enter" )
     Xc0 = characterToOneHotVector( textAsWords[xi + 2][0] )
+    print( Xc0 )
+    print( type( Xc0 ))
+    input( "hit Enter" )
     
     Yw0 = wordToOneHotVector( textAsWords[xi + 2] )
-    X_.append( Xw1+Xw0+Xc0 )
-    Y_.append( Yw0 )
-print( textAsWords[0], textAsWords[1], textAsWords[2][0]," -> ", oneHotVectorWord( Y_[0] ))
+#    X_.append( "1"+"2"+"3" )
+#    Y_.append( Yw0 )
+
+system( "clear" )
+#print( X_ )
+#print( textAsWords[0], textAsWords[1], textAsWords[2][0]," -> ", oneHotVectorToWord( Y_[0] ))
 
 
 

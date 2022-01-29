@@ -39,8 +39,6 @@ def textFromPDF( path, start = 0, end = 1000 ):
     return re.sub( " +", " ", textProcessed )
 
 text = textFromPDF("./data/Pride-and-Prejudice.pdf", 0, 200 )
-#print( f"Text[:500] - first 500 symbols of text: \n{text[:500]}" )
-#input( "hit enter ..." )
 
 def createVocabulary( text ):
         words = text.split(" ")
@@ -49,9 +47,6 @@ def createVocabulary( text ):
         return vocabulary
 
 vocabulary = createVocabulary( text )
-#print(f"Vocabulary -> \n{vocabulary}" )
-#print(f"Vocabulary[:20] -> \n{vocabulary[:20]}" )
-#input( "hit enter ..." )
 
 def wordToOneHotVector( word ):
     try:
@@ -60,8 +55,6 @@ def wordToOneHotVector( word ):
         index = 0  
     return [0] * index + [1] + ( len( vocabulary ) - index - 1)  * [0]
 
-#print( wordToOneHotVector( "will" ))
-#input( "hit enter ..." )
 
 def characterToOneHotVector( character ):
     try:
@@ -88,34 +81,33 @@ for word in textAsWords_:
 X_ = []
 Y_ = []
 
-
+#transform words and caracters in vectors
 for xi in range( len( textAsWords ) - 2 ):
-#    print( textAsWords[xi] )
-#    print( type( textAsWords[xi] ))
     Xw1 = wordToOneHotVector( textAsWords[xi] )              #first word transform to array
-#    print( f"Xw1 type: {type( Xw1 )}" )
-#    input( "hit enter ..." )
-    Xw1 = wordToOneHotVector( "will" )              #first word transform to array
-#    print( f"Xw1 account type: {type( Xw1 )}" )
-#    input( "hit enter ..." )
     Xw0 = wordToOneHotVector( textAsWords[xi + 1] )          #second word transform to array
     Xc0 = characterToOneHotVector( textAsWords[xi + 2][0] )  #first character of third word
 
     Yw0 = wordToOneHotVector( textAsWords[xi + 2] )          #third word
 
+    X_.append( Xw1 + Xw0 + Xc0 )    #create a list of [[word0+word1+caracter0inword2], [word1+word2+caracter0inword3],...,] in vector format
+    Y_.append( Yw0 )                #create a list of outputs [[word2], [word3], ... []]
 
-    X_.append( Xw1 + Xw0 + Xc0 )
-    Y_.append( Yw0 )
+X = torch.tensor( X_, dtype = torch.float32 )
+Y = torch.tensor( Y_, dtype = torch.float32 )
 
 system( "clear" )
-#X_ = np.array( X_ )
-#Y_ = np.array( Y_ )
-print( X_[0], Y_[0] )
-print(textAsWords[0],textAsWords[1],textAsWords[2][0],"->", oneHotVectorToWord( Y_[0] ))
-print( "*" * 13 )
-print(X_[5],Y_[5])
-print(textAsWords[5],textAsWords[6],textAsWords[7][0],"->",oneHotVectorToWord(Y_[5]))
-#print( textAsWords[0], textAsWords[1], textAsWords[2][0]," -> ", oneHotVectorToWord( Y_[0] ))
+print("TENSORS")
+print(X)
+print(X.shape)
+print(Y)
+print(Y.shape)
+
+#prepare the model
+N = 2 * len( vocabulary ) + len( alphabet )
+M = len( vocabulary )
+D = 256
+
+rate = 0.01
 
 
 

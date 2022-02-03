@@ -33,7 +33,7 @@ def textFromPDF( path, start = 0, end = 1000 ):
     
     return re.sub( " +", " ", textProcessed )
 
-text = textFromPDF("./data/Pride-and-Prejudice.pdf", 0, 200 )
+text = textFromPDF("./data/Pride-and-Prejudice.pdf", 0, 400 )
 
 def createVocabulary( text ):
         words = text.split(" ")

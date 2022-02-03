@@ -28,6 +28,10 @@ model = torch.nn.Sequential(
         torch.nn.ReLU( inplace = True ),
         torch.nn.Dropout( p = 0.5 ),
         
+        torch.nn.Linear( D, D ),             #2+
+        torch.nn.ReLU( inplace = True ),
+        torch.nn.Dropout( p = 0.5 ),
+        
         torch.nn.Linear( D, D ),             #3
         torch.nn.ReLU( inplace = True ),
         torch.nn.Dropout( p = 0.5 ),
@@ -43,7 +47,7 @@ loss = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam( model.parameters(),  lr = rate )
 #print( model )
 
-epochs = 100
+epochs = 300
 for i in range ( epochs ):
     optimizer.zero_grad()
 
@@ -53,7 +57,7 @@ for i in range ( epochs ):
 
     step_loss.backward()
     optimizer.step()
-    if i % 10 == 0:
+    if i % 30 == 0:
         print ('epoch [{}], Loss: {:.2f}'.format( i, step_loss.item() ))
 
 text_kb = input( "Hi! Input 2 words ant a letter >>>\n" )

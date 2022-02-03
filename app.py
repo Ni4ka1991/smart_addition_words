@@ -43,7 +43,7 @@ loss = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam( model.parameters(),  lr = rate )
 #print( model )
 
-epochs = 1000
+epochs = 100
 for i in range ( epochs ):
     optimizer.zero_grad()
 
@@ -55,5 +55,22 @@ for i in range ( epochs ):
     optimizer.step()
     if i % 10 == 0:
         print ('epoch [{}], Loss: {:.2f}'.format( i, step_loss.item() ))
+
+text_kb = input( "Hi! Input 2 words ant a letter >>>\n" )
+textAsWordsKb = text_kb.split( " " )
+Xw1 = wordToOneHotVector(textAsWordsKb[0])
+Xw0 = wordToOneHotVector(textAsWordsKb[1])
+Xc0 = characterToOneHotVector(textAsWordsKb[2])
+
+Xkb = torch.tensor([Xw1+Xw0+Xc0],dtype=torch.float32)
+#print(Xkb)
+Ypr = model.forward(Xkb).detach()
+
+iy = Ypr.argmax()
+print( oneHotVectorToWord( [0] * iy + [1] + (len(vocabulary) - iy - 1)  * [0]) )
+
+
+
+
 
 
